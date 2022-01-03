@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="http://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
+  <link rel="stylesheet" href="end.css">
+  <link rel="icon" type="image/jpg" href="/images/sonic-favicon.png">
+
+  <title>GAME OVER</title>
+</head>
+<body>
+  
+  <img id ="logo" src="/images/logo.png" alt="logo">
+  <button type="button" id="musicBtn" onclick="musicToggle(theme)">Music Off</button>
+    <h1 id="header1">TOP 5 SCORES</h1>
+    <div class="highScoreList"></div>
+    <h1 id="header2">FINAL SCORE</h1>
+      <h1 id="finalScore"></h1>
+    <form>
+      <input type="text" name="username" id="user-name" placeholder="NAME"/>
+      <button type="submit" class='button' id="submitScoreBtn" onclick="saveHighScore(event)" disabled>Submit Score</button>
+      <img id ="sonic-end" src="/images/sonic-start.gif" alt="sonic-standing">
+    </form>
+  
+   <script src="/end.js"></script>
+</body>
+</html>
