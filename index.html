@@ -4,18 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Sonic Run</title>
+    <link rel="icon" type="image/jpg" href="/images/sonic-favicon.png">
 </head>
+
 <body>
+    <!-- <audio autoplay loop id="greenhilltheme">
+        <source src="/sounds/greenhill.mp3" type="audio/mp3"/> 
+        Your browswer does not support the HTML5 audio tag.
+    </audio> -->
+    <div id="start-game" >
+        <a href="#" onclick="startGame()">START GAME</a>
+    </div>
+    <div id="score">Score: 0</div>
+    <button type="button" id="musicBtn" onclick="musicToggle(greenhill)">Music Off</button>
+    <h1 id="header1">TOP 5 SCORES</h1>
+    <div class="highScoreList"></div>
+    <div id="levels">Level: 1</div>
     <div class="game-container">
         
-        <div id="sonic"></div>
-        <div id="obstacle"></div>
-
-
+        <div id="sonic">
+            <img id ="sonic-body" src="/images/run.gif" alt="sonic-running">
+        </div>
+        <div class="blocks">
+           <div class="obstacles">
+               <img id ="obstacle-body" src="/images/redenemy.png" alt="enemy-1">
+           </div> 
+        </div>
+        
     </div>
-    
+    <div id="healthbar">100 HP</div>
+        <!-- <button class = "hide" id="restart-button" onclick="restartGame()">RESTART</button> -->
 
     <script src="/script.js"></script>
 </body>
