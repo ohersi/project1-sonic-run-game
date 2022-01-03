@@ -1,44 +1,202 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'VCR OSD Mono', sans-serif;
+}
+body {
+    display: grid;
+    justify-content: center;
+    background-color: black;
 }
 
 .game-container {
-    width: 600px;
-    height: 650px;
     margin: auto;
+    width: 600px;
+    height: 625px;
     border: 1px solid black;
-    
+    background-image: url(images/background.png);
+    background-size: 600px 650px;
+    overflow: hidden;
+    animation: bgmove linear infinite;
+    animation-duration: 5s;
+}
+
+@keyframes bgmove {
+    /* background still skipping frames, why? */
+    100% {
+        background-position: 0px 1920px;
+    }
+}
+
+#score {
+    position: absolute;
+    width: 100px;
+    top:auto;
+    z-index: 10;
+    color: white;
+    font-size: 70px
+}
+
+#levels {
+    position: relative;
+    width: auto;
+    top: auto;
+    z-index: 1;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+}
+
+#musicBtn {
+    position: absolute;
+    margin: 2%;
+    padding: 10px 10px;
+    left: 90%;
+    border: 2px white solid;
+    color: white;
+    background-color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+}
+
+#header1 {
+    position:absolute;
+    margin-top: 10%;
+    width: auto;
+    top: 0%;
+    left: 80%;
+    color: white;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.highScoreList {
+    position:absolute;
+    margin-top: 15%;
+    width: auto;
+    top: 0%;
+    left: 80%;
+    z-index: 10;
+    color: white;
+    font-size: 15px;
+    list-style-type: decimal;
+}
+
+.high-score {
+    margin-bottom: 1.3rem;
+    font-size: 22px;
+}
+
+#healthbar {
+    position: relative;
+    top: 10px;
+    color: white;
+    background-color: rgb(54, 175, 54);
+    overflow: visible;
+    text-align: center;
+    font-size: 40px;
+}
+
+.hide {
+    display: none;
 }
 
 #sonic {
-    width: 50px;
-    height: 100px;
-    background-color:green;
     position: relative;
-    background-image: url(images/sonic-running-back-aboveview.gif);
-    /* background-image: url(images/sonic-running-backview.gif); */
-    background-size: 100px 120px;
+    width: 70px;
+    height: 100px;
     top: 450px;
     left: 250px;
+    /* background-color:rgb(150, 150, 233); */
+    background-size: 70px 100px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-#obstacle {
-    width: 50px;
-    height: 50px;
+#sonic-body {
+    width: 70px;
+    height: 100px;
+}
+
+.obstacles {
     position: relative;
-    background-color: red;
-    bottom: 100px;
+    width: 100px;
+    height: 100px;
+    top: -150px;
     left: 150px;
-    animation: enemyRun 1s infinite linear;
+    background-color: rgb(248, 80, 108);
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: enemyRun infinite linear;
+    animation-duration: 1.7s;
 }
 
 @keyframes enemyRun {
     0% {
-        bottom: 100px;
+        top: -150px;
     }
     100%{
-        bottom: -580px;
+        top: 550px;
     }
-    
 }
+
+#obstacle-body {
+    width: 100%;
+    height: 100%;
+}
+
+#start-game {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    color: white;
+    background-color: black;
+    background-image: url(/images/sonic-start2.gif), url(/images/redenemy.png), url(/images/logo.png);
+    background-size: 15%, 15%, 60%;
+    background-repeat: no-repeat;
+    background-position: 12% 80%, 83% 80%, 50% 10%; /* x then y */
+    text-align: center;
+    text-decoration: none; 
+    font-size: 23px;
+}
+
+#start-game a:hover {
+    color: white;
+    background-color: red;
+}
+
+a {
+    margin-top: 25%;
+    text-decoration: none;
+}
+a:visited {
+    color: white;
+    text-decoration: none; 
+}
+
+
+@media screen and (max-width: 1000px) {
+    #score {
+      position: relative;
+      width: 0%;
+    }
+    .highScoreList {
+        position: relative;
+        left: auto;
+        grid-row: 6;
+        text-align: center;
+    }
+    #header1 {
+        position: relative;
+        grid-row: 5;
+        left: auto;
+    }
+  }
+
+ 
