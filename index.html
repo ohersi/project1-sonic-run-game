@@ -11,10 +11,6 @@
 </head>
 
 <body>
-    <!-- <audio autoplay loop id="greenhilltheme">
-        <source src="/sounds/greenhill.mp3" type="audio/mp3"/> 
-        Your browswer does not support the HTML5 audio tag.
-    </audio> -->
     <div id="start-game" >
         <a href="#" onclick="startGame()">START GAME</a>
     </div>
@@ -24,7 +20,7 @@
     <div class="highScoreList"></div>
     <div id="levels">Level: 1</div>
     <div class="game-container">
-        
+        <div id="game-over">GAME OVER</div>
         <div id="sonic">
             <img id ="sonic-body" src="/images/run.gif" alt="sonic-running">
         </div>
@@ -33,11 +29,8 @@
                <img id ="obstacle-body" src="/images/redenemy.png" alt="enemy-1">
            </div> 
         </div>
-        
     </div>
     <div id="healthbar">100 HP</div>
-        <!-- <button class = "hide" id="restart-button" onclick="restartGame()">RESTART</button> -->
-
     <script src="/script.js"></script>
 </body>
 </html>
