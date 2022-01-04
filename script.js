@@ -13,21 +13,13 @@ const healthbar = document.querySelector('#healthbar');
 const container = document.querySelector('.game-container');
 //game state
 const start = document.querySelector('#start-game');
+const endScreen = document.querySelector('#game-over')
 //image
 let image = document.querySelector('#sonic-body');
-//sound
+//sounds
 let toggle = document.querySelector('#musicBtn');
 let theme = new Audio('/sounds/theme.mp3');
 theme.volume = 0.1;
-//play theme when player hovers anywhere
-let playonce = true;
-document.addEventListener("mouseenter", function () {
-    if(playonce){
-        theme.play();
-    }
-    playonce = false;
-    
-})
 let greenhill = new Audio('/sounds/greenhill.mp3');
 greenhill.loop = true;
 greenhill.volume = 0.05;
@@ -37,15 +29,19 @@ let dash = new Audio('/sounds/dash.mp3');
 dash.volume = 0.07;
 
 //Track score - levels
-let counter = 0;
+let counter = 1;
 let level = 1;
 //Sonic health (100hp)
 let Health = 100;
 //speed of enemy
-let speed = 1.3;
+let speed = 5;
 //speed of background
-let BG_SPEED = 3.1;
-// isGameOver = false;
+let BG_SPEED = 2.65;
+//enemy starting position
+let startPosition = -190;
+//game over
+isGameOver = false;
+
 
 runGame = () => {
 
@@ -103,30 +99,46 @@ document.addEventListener('keydown', e => {
     }
 })
 
-//Have blocks randomly appearing moving down the page
-enemy.addEventListener('animationiteration', () => {
-    let random = Math.floor(Math.random() * 6);
-    left = random * 100;
-    if (left < 600){
-     enemy.style.left =  left + 'px'   
-    }
-    //update score
-    counter++;
-    scoreBoard.textContent = `Score: ${counter}`;
-    increaseSpeed();
-    updateLevel();
-})
 
-//speed up blocks
+moveDown = () => {
+    if (counter % 10 === 0 && speed < 22){
+        speed +=0.02;
+    }
+    startPosition += speed;
+    enemy.style.top = startPosition + 'px';
+    requestAnimationFrame(moveDown);
+
+    //reset enemy position
+    if (Math.abs(startPosition) >= 700){
+        startPosition = -190;
+
+        //# of columns enemy can appear randomly
+        let random = Math.floor(Math.random() * 6);
+        left = random * 100;
+        if (left < 600){
+            enemy.style.left =  left + 'px'   
+            }
+            increaseSpeed();
+        }
+    }
+    moveDown();
+
+//Update score
+setInterval(() => {
+    if (!isGameOver){
+        counter++;
+        scoreBoard.textContent = `Score: ${counter}`;
+        updateLevel();
+        increaseSpeed();
+    }
+}, 1000);
+  
+//speed up background
 increaseSpeed = () => {
-    if (counter % 10 === 0 && speed >= 0.5 && BG_SPEED >= 0) {
-        console.log("10+");
-        speed -= 0.1;
-        BG_SPEED -= 0.2;
-        console.log(speed);
-        // rn background speeds up with block, find sweet spot 
-        container.style.animationDuration = BG_SPEED + 's'
-        enemy.style.animationDuration = speed + 's';
+    if (counter % 10 === 0 && BG_SPEED >= 0.9) {
+        BG_SPEED -= 0.17;
+        console.log(`background speed: ${BG_SPEED}`);
+        container.style.animationDuration = BG_SPEED + 's';
     }
 }
 
@@ -139,13 +151,6 @@ updateLevel = () => {
     }
 }
 
-// //add Enemies *DELETE
-// addBlock = () => {
-//     if(counter % 10 === 0 && counter < 100) {
-//         // manyEnemies.appendChild(enemy.cloneNode(true))
-//     }
-// }
-
 //Collision
 setInterval( () => {
 //get size and position of element rectangle relative to viewport
@@ -157,9 +162,18 @@ if(Math.abs(sonicBody.top - enemyBody.top) < sonicBody.height &&
         console.log("HIT");
         hit_sound.play();
         removeHealth();
-        if (Health <= 0) gameOver();
+    if (Health <= 0) {
+        isGameOver = true;
+        enemy.style.top = -200;
+        dash.pause();
+        hit_sound.pause();
+        cancelAnimationFrame(moveDown);
+        container.style.backgroundImage = "none";
+        endScreen.style.display = "flex";
+        gameOver();
+        }
     }
-}, 300);
+}, 400);
 
 //remove Health 
 removeHealth = () => {
@@ -178,10 +192,12 @@ removeHealth = () => {
 
 //End the game
 gameOver = () => {
-    alert(`Game Over! Final score is ${counter}.`)
     greenhill.pause();
     localStorage.setItem('mostRecentScore', counter);
-    return window.location.assign("/end-screen.html")
+    setTimeout(() => {
+        return window.location.assign("/end-screen.html")
+    }, 2500);
+    
 }
 
 //Turn music on and off
@@ -193,9 +209,18 @@ musicToggle = (greenhill) => {
     else {
         greenhill.pause();
       toggle.innerHTML = "Music On";
-    }
+        }
     }
 }
+//play theme when player clicks anywhere
+let playonce = true;
+document.addEventListener("mouseenter", function () {
+    if(playonce){
+        theme.play();
+    }
+    playonce = false;
+    
+})
 
 ///////////////////////////////////////////////////
 
