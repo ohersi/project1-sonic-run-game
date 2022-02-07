@@ -6,7 +6,7 @@ Top down endless runner game where the player controls Sonic trying to avoid obs
 
 ## Demo
 
-https://reverent-visvesvaraya-5ae4b2.netlify.app/
+https://sonic-run.netlify.app/
 
 
 ## Lessons Learned
